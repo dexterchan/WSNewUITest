@@ -1,0 +1,70 @@
+package NewUITest.WSNewUITest;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.eclipse.jetty.server.Request;
+import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.handler.AbstractHandler;
+import org.eclipse.jetty.servlet.DefaultServlet;
+import org.eclipse.jetty.servlet.ServletContextHandler;
+
+import NewUITest.WSNewUITest.Service.MyEchoServlet;
+
+public class App extends AbstractHandler
+{
+    public void handle(String target,
+                       Request baseRequest,
+                       HttpServletRequest request,
+                       HttpServletResponse response)
+        throws IOException, ServletException
+    {
+        response.setContentType("text/html;charset=utf-8");
+        response.setStatus(HttpServletResponse.SC_OK);
+        baseRequest.setHandled(true);
+        response.getWriter().println("<h1>Hello World</h1>");
+    }
+
+    public static void main(String[] args) throws Exception
+    {
+        
+        //server.setHandler(new HelloWorld());
+        
+        String webappDirLocation = "src/main/resources/static/";
+
+        
+        Server server = new Server(8080);
+        
+        
+
+        ServletContextHandler context = new ServletContextHandler(
+                ServletContextHandler.SESSIONS);
+        context.setContextPath("/");
+        context.setResourceBase(webappDirLocation);
+        server.setHandler(context);
+
+        // Add dump servlet
+        //context.addServlet(DumpServlet.class, "/dump/*");
+        // Add default servlet
+        context.addServlet(DefaultServlet.class, "/");
+
+        Server wsserver = new Server(9001);
+        ServletContextHandler wscontext = new ServletContextHandler(
+                ServletContextHandler.SESSIONS);
+        wscontext.addServlet(MyEchoServlet.class, "/");
+        wsserver.setHandler(wscontext);
+        
+        wsserver.start();
+        
+        server.start();
+        
+        
+        server.join();
+        wsserver.join();
+        
+
+    }
+}

@@ -1,0 +1,4 @@
+play -t raw -c 1 -b 16 -r 44100 -e signed-integer --endian=little out.wav
+
+
+pip install --ignore-installed --upgrade https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-1.0.1-cp27-none-linux_x86_64.whl

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Hello</title>
+</head>
+<body>
+Hello world
+</body>
+
+
+<div class="container" >
+		<div class="col-sm-7">
+			<div class="panel panel-default" id="fxQuote">
+				<div class="panel-heading">
+					<h3>Test speech reco</h3> 
+				</div>
+				<div class="panel-body">
+
+					<div class="col-sm-5">
+							<select class="form-control"
+							placeholder="Currency1" v-model="recotext"  >
+							<option v-for="ccy in ccyset" > {{ ccy }}</option>
+						</select>
+					</div>
+					<div class="col-sm-5">
+					<!-- 
+						<input class="form-control" placeholder="Currency2"
+							v-model="quote.ccy2">  -->
+						<select class="form-control"
+							placeholder="Currency2" v-model="quote.ccy2"  >
+							<option v-for="ccy in ccyset" > {{ ccy }}</option>
+						</select>
+						</div>
+						<p>
+						
+						<button class="btn btn-primary" v-on:click="quoteFX">Send</button>
+						
+				</div>
+			</div>
+		</div>
+</div>
+
+
+<script src="/webjars/vue/2.0.1/dist/vue.min.js"></script>
+<script src="/webjars/vue-resource/0.9.3/vue-resource.min.js"></script>
+
+
+
+<script src="/static/recordAudio.js"></script>
+</html>
