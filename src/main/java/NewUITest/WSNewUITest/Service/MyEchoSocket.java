@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.SequenceInputStream;
+import java.util.List;
 
 import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioInputStream;
@@ -12,6 +13,8 @@ import javax.sound.sampled.AudioSystem;
 
 import org.eclipse.jetty.websocket.api.RemoteEndpoint;
 import org.eclipse.jetty.websocket.api.Session;
+
+import com.google.speech.GoogleSpeechReco;
 
 public class MyEchoSocket implements org.eclipse.jetty.websocket.api.WebSocketListener {
 	private Session outbound;
@@ -115,11 +118,18 @@ public class MyEchoSocket implements org.eclipse.jetty.websocket.api.WebSocketLi
 			
 			try
 			{
-			    remote.sendString("Hello World");
+				List<String> r=GoogleSpeechReco.syncRecognizeFile("out.wav");
+				
+				if(r.size()>0){
+					String result = r.get(0);
+					remote.sendString(result);
+				}
 			}
 			catch (IOException e)
 			{
 			    e.printStackTrace(System.err);
+			}catch(Exception e){
+				e.printStackTrace();
 			}
         }
     }
