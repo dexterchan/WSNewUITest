@@ -19,9 +19,20 @@ import com.google.protobuf.ByteString;
 
 public class GoogleSpeechReco {
 
-	public static List<String> syncRecognizeFile(String fileName) throws Exception, IOException {
+	static public class RecoResult{
+		public RecoResult(){}
+		public String result;
+		public float confidence;
+		@Override
+		public String toString() {
+			// TODO Auto-generated method stub
+			return "Result:"+result+" with confidence:"+confidence+"\n";
+		}
+		
+	}
+	public static List<RecoResult> syncRecognizeFile(String fileName) throws Exception, IOException {
 		SpeechClient speech = SpeechClient.create();
-		List<String> resultLst = new LinkedList<String>();
+		List<RecoResult> resultLst = new LinkedList<RecoResult>();
 
 		try {
 			Path path = Paths.get(fileName);
@@ -41,7 +52,11 @@ public class GoogleSpeechReco {
 				List<SpeechRecognitionAlternative> alternatives = result.getAlternativesList();
 				for (SpeechRecognitionAlternative alternative : alternatives) {
 					//System.out.printf("Transcription: %s%n", alternative.getTranscript());
-					resultLst.add(alternative.getTranscript());
+					RecoResult r = new GoogleSpeechReco.RecoResult();
+					r.confidence=alternative.getConfidence();
+					r.result = alternative.getTranscript();
+					
+					resultLst.add(r);
 				}
 			}
 		} finally {

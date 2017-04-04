@@ -118,11 +118,13 @@ public class MyEchoSocket implements org.eclipse.jetty.websocket.api.WebSocketLi
 			
 			try
 			{
-				List<String> r=GoogleSpeechReco.syncRecognizeFile("out.wav");
+				List<GoogleSpeechReco.RecoResult> r=GoogleSpeechReco.syncRecognizeFile("out.wav");
 				
 				if(r.size()>0){
-					String result = r.get(0);
-					remote.sendString(result);
+					GoogleSpeechReco.RecoResult result = r.get(0);
+					remote.sendString(result.result);
+				}else{
+					remote.sendString("Unknown");
 				}
 			}
 			catch (IOException e)
