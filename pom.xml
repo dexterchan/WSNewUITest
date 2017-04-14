@@ -104,6 +104,11 @@
 			<artifactId>google-cloud-speech</artifactId>
 			<version>0.9.4-alpha</version>
 		</dependency>
+		<dependency>
+			<groupId>com.google.cloud</groupId>
+			<artifactId>google-cloud-language</artifactId>
+			<version>0.9.4-alpha</version>
+		</dependency>
 	</dependencies>
 
 	<build>
