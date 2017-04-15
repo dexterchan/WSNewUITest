@@ -12,7 +12,7 @@ import junit.framework.TestCase;
 public class GoogleSpeechTest extends TestCase {
 
 	public void testSyncRecognizeFile() throws Exception{
-		List<GoogleSpeechReco.RecoResult> r=GoogleSpeechReco.syncRecognizeFile("/Users/dexter/Documents/workspace/WSNewUITest/out.wav");
+		List<GoogleSpeechReco.RecoResult> r=GoogleSpeechReco.syncRecognizeFile("out.wav");
 		
 		r.forEach(item -> System.out.println(item));
 		
