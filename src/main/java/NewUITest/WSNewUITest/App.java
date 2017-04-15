@@ -45,7 +45,7 @@ public class App extends AbstractHandler {
 		Server server = new Server();
 		// HTTP connection
 		ServerConnector connector = new ServerConnector(server);
-		connector.setPort(8080);
+		connector.setPort(80);
 
 		// HTTPS connection
 		HttpConfiguration https = new HttpConfiguration();
@@ -53,7 +53,7 @@ public class App extends AbstractHandler {
 
 		ServerConnector sslConnector = new ServerConnector(server,
 				new SslConnectionFactory(sslContextFactory, "http/1.1"), new HttpConnectionFactory(https));
-		sslConnector.setPort(8082);
+		sslConnector.setPort(443);
 		server.setConnectors(new Connector[] { connector, sslConnector });
 		// Figure out what path to serve content from
 
@@ -76,13 +76,13 @@ public class App extends AbstractHandler {
 		wscontext.addServlet(MyEchoServlet.class, "/");
 		wsserver.setHandler(wscontext);
 		ServerConnector wsConnector = new ServerConnector(wsserver);
-		wsConnector.setPort(9001);
+		wsConnector.setPort(8080);
 		wsserver.addConnector(wsConnector);
 		ServerConnector wssConnector = new ServerConnector(wsserver,
 		        new SslConnectionFactory(sslContextFactory,
 		            HttpVersion.HTTP_1_1.asString()),
 		        new HttpConnectionFactory(https)); // THIS WAS MISSING
-		wssConnector.setPort(9002);
+		wssConnector.setPort(8082);
 		wsserver.addConnector(wssConnector);
 
 		wsserver.start();
