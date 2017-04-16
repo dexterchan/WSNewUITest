@@ -69,28 +69,29 @@ public class App extends AbstractHandler {
 		context.setResourceBase(f.toExternalForm());
 		// Add default servlet
 		context.addServlet(DefaultServlet.class, "/");
+		context.addServlet(MyEchoServlet.class, "/audio");
 		server.setHandler(context);
 
-		Server wsserver = new Server();
-		ServletContextHandler wscontext = new ServletContextHandler(ServletContextHandler.SESSIONS);
-		wscontext.addServlet(MyEchoServlet.class, "/");
-		wsserver.setHandler(wscontext);
-		ServerConnector wsConnector = new ServerConnector(wsserver);
-		wsConnector.setPort(9001);
-		wsserver.addConnector(wsConnector);
-		ServerConnector wssConnector = new ServerConnector(wsserver,
-		        new SslConnectionFactory(sslContextFactory,
-		            HttpVersion.HTTP_1_1.asString()),
-		        new HttpConnectionFactory(https)); // THIS WAS MISSING
-		wssConnector.setPort(9002);
-		wsserver.addConnector(wssConnector);
+		//Server wsserver = new Server();
+		//ServletContextHandler wscontext = new ServletContextHandler(ServletContextHandler.SESSIONS);
+		//wscontext.addServlet(MyEchoServlet.class, "/");
+		//wsserver.setHandler(wscontext);
+		//ServerConnector wsConnector = new ServerConnector(wsserver);
+		//wsConnector.setPort(9001);
+		//wsserver.addConnector(wsConnector);
+		//ServerConnector wssConnector = new ServerConnector(wsserver,
+		//        new SslConnectionFactory(sslContextFactory,
+		//            HttpVersion.HTTP_1_1.asString()),
+		//        new HttpConnectionFactory(https)); // THIS WAS MISSING
+		//wssConnector.setPort(9002);
+		//wsserver.addConnector(wssConnector);
 
-		wsserver.start();
+		//wsserver.start();
 
 		server.start();
 
 		server.join();
-		wsserver.join();
+		//wsserver.join();
 
 	}
 }
