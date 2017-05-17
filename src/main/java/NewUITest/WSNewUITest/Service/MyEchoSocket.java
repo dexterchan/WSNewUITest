@@ -1,11 +1,18 @@
 package NewUITest.WSNewUITest.Service;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.SequenceInputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
+import java.util.UUID;
 
 import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioInputStream;
@@ -15,7 +22,6 @@ import org.eclipse.jetty.websocket.api.RemoteEndpoint;
 import org.eclipse.jetty.websocket.api.Session;
 
 import com.google.speech.GoogleSpeechReco;
-import java.util.UUID;
 public class MyEchoSocket implements org.eclipse.jetty.websocket.api.WebSocketListener {
 	private Session outbound;
 	
@@ -151,15 +157,44 @@ public class MyEchoSocket implements org.eclipse.jetty.websocket.api.WebSocketLi
         	String input = data.substring(13);
         	System.out.println(input);
         	
-        	RemoteEndpoint remote = this.outbound.getRemote();
+        	String url = "http://192.168.50.138:5000/pib/service/requests";
         	try {
-				remote.sendString("recognized completed!");
-				System.out.println("recognized complted!");
-			} catch (IOException e) {
+				URL urlobj = new URL(url);
+				HttpURLConnection conn = (HttpURLConnection) urlobj.openConnection();
+				
+				conn.setRequestMethod("POST");
+				conn.setRequestProperty("Content-Type", "application/json");
+				
+				String urlParameters = "{\"description\":\"" + input + "\"}";
+				
+				conn.setDoOutput(true);
+				DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
+				wr.writeBytes(urlParameters);
+				wr.flush();
+				wr.close();
+				
+				int responseCode = conn.getResponseCode();
+				BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+				String inputLine;
+				StringBuffer response = new StringBuffer();
+				
+				while ((inputLine = in.readLine()) != null) {
+					response.append(inputLine);
+				}
+				
+				in.close();
+				
+				
+				RemoteEndpoint remote = this.outbound.getRemote();
+				remote.sendString("@action@: " + response);
+				
+			} catch (MalformedURLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-        	
         	
         }
     }
