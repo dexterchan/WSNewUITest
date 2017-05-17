@@ -157,7 +157,7 @@ public class MyEchoSocket implements org.eclipse.jetty.websocket.api.WebSocketLi
         	String input = data.substring(13);
         	System.out.println(input);
         	
-        	String url = "http://192.168.50.138:5000/pib/service/requests";
+        	String url = "http://localhost:5000/pib/service/requests";
         	try {
 				URL urlobj = new URL(url);
 				HttpURLConnection conn = (HttpURLConnection) urlobj.openConnection();
