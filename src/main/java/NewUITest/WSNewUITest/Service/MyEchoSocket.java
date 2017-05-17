@@ -146,6 +146,21 @@ public class MyEchoSocket implements org.eclipse.jetty.websocket.api.WebSocketLi
 			}catch(Exception e){
 				e.printStackTrace();
 			}
+        } else if (data.startsWith("@recognize@: ")) {
+        	
+        	String input = data.substring(13);
+        	System.out.println(input);
+        	
+        	RemoteEndpoint remote = this.outbound.getRemote();
+        	try {
+				remote.sendString("recognized completed!");
+				System.out.println("recognized complted!");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        	
+        	
         }
     }
 	
