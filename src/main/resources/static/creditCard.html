@@ -15,37 +15,29 @@
 
 </head>
 <body>
-	<h2>Google Speech testing</h2>
-
-
-	<div class="container" >
+	<h2>Credit Card</h2>
+<div class="container" >
 		<div class="col-sm-7">
 			<div class="panel panel-default" id="record">
 				<div class="panel-heading">
-					<h3>Speech reco</h3> 
+					<h3>Credit Card</h3> 
 					 <h3>
-						<input v-model="returnResult" class="form-control" placeholder="Recognized voice">
 						</h3>
 				</div>
 				<div class="panel-body">
 						<p>
 						<div class="col-sm-2">
-						<button class="btn btn-primary" v-on:click="audiorecord" 
-							v-bind:class="recordbuttonSwitch.style" >{{recordbuttonSwitch.value}}</button>
 						</div>
 						<div class="col-sm-5">
-						<button class="btn btn-primary" v-on:click="exportFile" 
-							v-bind:class="recobuttonSwitch.style"
-							v-bind:disabled="isRecord||isRecognize" >{{recobuttonSwitch.value}}</button>
 						</div>
 						
 				</div>
 			</div>
 		</div>
 	</div>
-	<div> Credit Card </div>
-	<div> Forex Services </div>
-	<div> Loan </div>
+
+	
+
 	<script src="/node_modules/vue/dist/vue.min.js"></script>
 	<script src="/node_modules/vue-resource/dist/vue-resource.min.js"></script>
 	<script src="/node_modules/recorder.js"></script>
