@@ -34,7 +34,7 @@ public class GoogleSpeechQuickStart {
 		SpeechClient speech = SpeechClient.create();
 
 		// The path to the audio file to transcribe
-		String fileName = "/Users/dexter/Documents/workspace/WSNewUITest/out.wav";
+		String fileName = "/WSNewUITest/out.wav";
 
 		syncRecognizeFile(fileName);
 	}
